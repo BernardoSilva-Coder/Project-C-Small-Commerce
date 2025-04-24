@@ -1,0 +1,25 @@
+// Conversao de numero Inteiro (int) para String (string) Manualmente
+string intParaString(int numero) {
+    char buffer[10]; // buffer temporário para até 9 dígitos + '\0'
+    int i = 0;
+
+    if (numero == 0) {
+        return "0";
+    }
+
+    // Extrai dígitos de trás para frente
+    while (numero > 0) {
+        buffer[i++] = '0' + (numero % 10);
+        numero /= 10;
+    }
+
+    buffer[i] = '\0'; // termina a string
+
+    // Inverter o conteúdo do buffer
+    string resultado = "";
+    for (int j = i - 1; j >= 0; j--) {
+        resultado += buffer[j];
+    }
+
+    return resultado;
+}
