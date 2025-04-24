@@ -58,7 +58,7 @@ void listarProdutos(string** stock) {
 }
 //Criacao da Funcao Adicionar Produto
 void adicionarProdutos(string** stock) {
-    // Vari·veis
+    // Vari√°veis
     int numeroProdAdd;
 
 
@@ -87,7 +87,7 @@ void adicionarProdutos(string** stock) {
 
     }
     else {
-        cout << "Erro: excede o n˙mero m·ximo de produtos." << endl;
+        cout << "Erro: excede o n√∫mero m√°ximo de produtos." << endl;
     }
 }
 void removerProdutos(string** stock) {
@@ -96,7 +96,7 @@ void removerProdutos(string** stock) {
     cout << "Qual o ID do Produto que quer apagar? ";
     cin >> idProdApg;
 
-    int index = 0;                             // A Vari·vel index serve para guardar a posiÁ„o (linha) onde est· o produto que tem o ID que o utilizador quer remover.
+    int index = 0;                             // A Vari√°vel index serve para guardar a posi√ß√£o (linha) onde est√° o produto que tem o ID que o utilizador quer remover.
     for (int i = 0; i < totalProdutos; i++) {
         if (stoi(stock[i][0]) == idProdApg) {   //stoi(stock[i][0]) significa converter a variavel da matriz ID (Coluna 0 que e uma string para Int, de modo a poder ser comparada)
             index = i;                          // Dai aqui a igualarmos a posicao, variavel que nos da a posicao.
@@ -105,7 +105,7 @@ void removerProdutos(string** stock) {
     }
 
     if (index <= 0) {
-        cout << "ID n„o encontrado." << endl;
+        cout << "ID n√£o encontrado." << endl;
         return;
     }
 
@@ -143,9 +143,12 @@ void efectuarVenda(string** stock) {
 
 int main()
 {
-    inicializarstock(stock);
+    inicializarstock();
     int op;
     do {
+
+        system("CLS");// Limpa o menu para a proxima opera√ß√£o
+
         cout << "--- MENU ---" << endl;
         cout << "1. Efetuar venda" << endl;
         cout << "2. Adicionar produto" << endl;
@@ -154,6 +157,7 @@ int main()
         cout << "5. Sair" << endl;
         cout << "Opcao: ";
         cin >> op;
+    
 
         switch (op) {
         case 1:; break; // criar funcao para efectuarVenda + Talao
@@ -161,10 +165,15 @@ int main()
         case 3: removerProdutos(stock); break; // criar funcao de eliminarProdutos
         case 4: listarProdutos(stock); break; // criar a funcao de listarPprodutos, tendo em base o stock
         case 5: cout << "A sair..." << endl; break;
-        default: cout << "OpÁ„o inv·lida." << endl;
+        default: cout << "Op√ß√£o inv√°lida." << endl;
         }
 
+        if (op != 5) {
+            cout << "\nPressione Enter para continuar...";
+            cin.ignore(); // Limpa o buffer do cin
+            cin.get(); // Espera o Enter
+        }
+        
     } while (op != 5);
-}
 
 
