@@ -1,6 +1,6 @@
 # Project-C++ Small-Commerce
 DONE List:
-1.  Fazer Menu;
+1.  Fazer Menu;  (Bernardo)
 2.  Funcao inicializarStock();  (Bernardo)
 3.  Funcao listarProduto();  (Bernardo)
 4.  Funcao adicionarProduto();  (Bernardo)
