@@ -186,12 +186,12 @@ void efectuarVenda(string** stock) {
         totalsemIva += subtotal;
 
         // Atualizar stock
-        stock[index][2] = to_string(quantidadeStock - qntdVenda); //linha funciona como um cout invisível. // Formatei tudo como queria que saisse a string no talao  // Para evitar que to_string() ponha casas decimais a mais.
+        stock[index][2] = to_string(quantidadeStock - qntdVenda); 
 
         // Adicionar à string do talão atraves do "OSTRINGSTREAM" : Para formatar números (com setprecision, fixed, etc.) antes de transformar em string.Para juntar vários valores num só texto, de forma organizada.
         ostringstream linha;
-        linha << left << setw(15) << stock[index][1] << setw(15) << qntdVenda << setw(15) << precoUnitario << setw(15) << precoUnitario * qntdVenda << "\n";
-        detalhesVenda += linha.str();// Puxei o resultado para o detalhesVenda com linha.str().
+        linha << left << setw(15) << stock[index][1] << setw(15) << qntdVenda << setw(15) << precoUnitario << setw(15) << precoUnitario * qntdVenda << "\n";//linha funciona como um cout invisível. // Formatei tudo como queria que saisse a string no talao  
+        detalhesVenda += linha.str();// Puxei o resultado para o detalhesVenda com linha.str().// Para evitar que to_string() ponha casas decimais a mais.
 
         cout << qntdVenda << " unidade do produto " << stock[index][1] << " foi adicionado ao carrinho. Subtotal: " << fixed << setprecision(2) << subtotal << " €" << endl;
         cout << "Deseja continuar a comprar? (s/n): ";
