@@ -6,11 +6,11 @@ DONE List:
 4.  Funcao adicionarProduto();  (Bernardo)
 5.  Funcao removerProduto();  (Bernardo)
 6.  Funcao efetuarVenda();  (Bernardo)
-7.  Validacoes adicionarProduto();   (Bernardo)
 8.  Limpar da Console as Accoes das Funcoes;  (Vinicius)
  
 
 TO DO LIST:
+7.  Validacoes adicionarProduto(); (    (Vinicius)
 1.  Validacoes Menu  (Para nao crashar se se escrever letras;  (Vinicius)
 2.  Validacoes listarProduto();  (Vinicius)
 3.  Validacoes removerProduto();  (Vinicius)
