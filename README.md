@@ -1,4 +1,4 @@
-# Project-C-Small-Commerce
+# Project-C++ Small-Commerce
 
 TO DO LIST:
 1.  Validacao Para o Menu Principal Para nao crashar se se escrever letras;
