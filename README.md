@@ -10,7 +10,7 @@ DONE List:
  
 
 TO DO LIST:
-7.  Validacoes adicionarProduto(); (    (Vinicius)
+7.  Validacoes adicionarProduto(); ( Verificar se o produto já existe antes de adicionar um novo , Se o produto já existir mas estiver com stock 0, atualizar apenas a quantidade ,Evitar criar entradas duplicadas para o mesmo produto )  (Vinicius)
 1.  Validacoes Menu  (Para nao crashar se se escrever letras;  (Vinicius)
 2.  Validacoes listarProduto();  (Vinicius)
 3.  Validacoes removerProduto();  (Vinicius)
