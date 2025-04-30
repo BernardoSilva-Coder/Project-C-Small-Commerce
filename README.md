@@ -19,3 +19,6 @@ TO DO LIST:
 5.  Fazer o Talao (ou arranjar o que esta ali feito de modo a sair tudo com 2 casas decimais e o simbolo do euro);  (Vinicius)
 6.  Testar o programa (depois para perceber se e preciso mais validacoes(principalmente com as Quantidades));  (Vinicius)
 7.  Preparar Apresentacao; (Vinicius)/(Bernardo)
+8. adicionar ao carrinho (Vinicius)
+9. funcao de checkout com base no carrinho (Vinicius)
+10. Alterar menu adicionando carrinho e checkout (Vinicius)
