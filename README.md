@@ -9,6 +9,7 @@ DONE List:
 6.  Funcao efetuarVenda();  (Bernardo)
 8.  Limpar da Console as Accoes das Funcoes;  (Vinicius)
 9.  Validacoes Menu  (Para nao crashar se se escrever letras;  (Bernardo)
+10. Fazer o Talao (ou arranjar o que esta ali feito de modo a sair tudo com 2 casas decimais);  (Bernardo)
  
 
 TO DO LIST:
@@ -17,7 +18,7 @@ TO DO LIST:
 
 3.  Validacoes listarProduto();  (Vinicius)
 4.  Validacoes removerProduto();  (Vinicius)
-5.  Fazer o Talao (ou arranjar o que esta ali feito de modo a sair tudo com 2 casas decimais e o simbolo do euro);  (Vinicius)
+
 6.  Testar o programa (depois para perceber se e preciso mais validacoes(principalmente com as Quantidades));  (Vinicius)
 7.  Preparar Apresentacao; (Vinicius)/(Bernardo)
 8. adicionar ao carrinho (Vinicius)
