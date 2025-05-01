@@ -16,8 +16,12 @@ int colunas = 4;
 int totalProdutos = 4;
 const double IVA = 1.23;
 const double margemLucro = 1.30;
+int qntdVenda;
 // Matriz Para stock de 50 items diferentes ( ID: 0 | Nome: 1 | Quantidade : 2 | Preco de custo : 3)
 string** stock = new string * [numMaxProd];
+//Matriz para o carrinho
+string** carrinho = new string * [50];
+int totalCarrinho = 0;
 
 void inicializarstock() {
     for (int i = 0; i < numMaxProd; i++)
@@ -133,8 +137,16 @@ void removerProdutos(string** stock) {
     totalProdutos--; // Atualiza o total de Produtos
     cout << "Produto removido com sucesso." << endl;
 }
-//Criacao da Funcao Efectuar venda
-void efectuarVenda(string** stock) {
+//Criacao da Funcao Inicializar carrinho
+void inicializarCarrinho(string** carrinho) {
+    for (int i = 0; i < 50; i++)
+    {
+        carrinho[i] = new string[4];
+    }
+}
+
+//Criacao da Funcao Adicionar Carrinho
+void adicionarCarrinho(string** stock) {
     int idProd;
     if (totalProdutos == 0) //Validacao do Stock
     {
@@ -144,9 +156,7 @@ void efectuarVenda(string** stock) {
 
     char continuar;
     double totalsemIva = 0;
-    //Criacao de String que vai guardar os detahes da compra
-    string detalhesVenda = "";
-
+    
     do {
         listarProdutos(stock);
 
@@ -167,7 +177,7 @@ void efectuarVenda(string** stock) {
         }
         //Variaveis Para fazer os calculos dos custos
         int quantidadeStock = stoi(stock[index][2]);
-        int qntdVenda;
+        
         cout << "Insira a Quantidade do Produto que deseja comprar : ";
         cin >> qntdVenda;
 
@@ -185,67 +195,157 @@ void efectuarVenda(string** stock) {
         double subtotal = precoUnitario * qntdVenda;
         totalsemIva += subtotal;
 
-        // Atualizar stock
-        stock[index][2] = to_string(quantidadeStock - qntdVenda); 
+        // Adicionar à matriz carrinho
+        carrinho[totalCarrinho][0] = stock[index][1]; // Nome
+        carrinho[totalCarrinho][1] = to_string(qntdVenda); // Quantidade
+        carrinho[totalCarrinho][2] = to_string(precoUnitario); // Preço unitário
+        carrinho[totalCarrinho][3] = to_string(subtotal); // Subtotal
 
-        // Adicionar à string do talão atraves do "OSTRINGSTREAM" : Para formatar números (com setprecision, fixed, etc.) antes de transformar em string.Para juntar vários valores num só texto, de forma organizada.
-        ostringstream linha;
-        linha << left << setw(15) << stock[index][1] << setw(15) << qntdVenda << setw(15) << precoUnitario << setw(15) << precoUnitario * qntdVenda << "\n";//linha funciona como um cout invisível. // Formatei tudo como queria que saisse a string no talao  
-        detalhesVenda += linha.str();// Puxei o resultado para o detalhesVenda com linha.str().// Para evitar que to_string() ponha casas decimais a mais.
+        totalCarrinho++;
+        // Atualizar stock
+        stock[index][2] = to_string(quantidadeStock - qntdVenda);
+
+        
 
         cout << qntdVenda << " unidade do produto " << stock[index][1] << " foi adicionado ao carrinho. Subtotal: " << fixed << setprecision(2) << subtotal << " €" << endl;
         cout << "Deseja continuar a comprar? (s/n): ";
         cin >> continuar;
 
     } while (continuar == 's' || continuar == 'S');
-
-    double totalComIva = totalsemIva * IVA;
-    cout << detalhesVenda;
-
-    /* // TODO:Imprimir talão com o ostringstreeam para o formatar direitinho (Nao estou  a conseguir inprinmir)
-    ostringstream totais;
-    totais << fixed << setprecision(2);
-    totais << "\n====== TALÃO DE COMPRA ======\n";
-    totais << left << setw(15) << "Produto" << setw(15) << "Qtd" << setw(15) << "Preço Unitário" << setw(15) << "Subtotal" << "\n";
-    totais << "----------------------------------------------------------------------------------------------------------------\n";
-    totais << detalhesVenda;
-    totais << "----------------------------------------------------------------------------------------------------------------\n";
-    totais << left << setw(30) << "Total sem IVA:" << totalsemIva << " €\n";
-    totais << left << setw(30) << "Total com IVA:" << totalComIva << " €\n";
-    totais << "=============================\n";
-    // left	Alinha o texto à esquerda.
-    // setw(15)	Reserva 15 caracteres de largura para o camp
-    //fixed << setprecision(2)	Força sempre 2 casas decimais.
-    cout << totais.str();*/ 
 }
+void removerCarrinho(string** carrinho,string** stock) {
+    if (totalCarrinho == 0) {
+        cout << "Carrinho vazio!" << endl;
+        return;
+    }
+
+    cout << "Itens no carrinho:\n";
+    for (int i = 0; i < totalCarrinho; i++) {
+        cout << i + 1 << ". " << carrinho[i][0] << " x " << carrinho[i][1] << endl;
+    }
+
+    int pos;
+    cout << "Indique o numero do item a remover: ";
+    cin >> pos;
+    pos--; // para índice 0-based
+
+    if (pos >= 0 && pos < totalCarrinho) {
+        // devolver a quantidade ao stock
+        for (int i = 0; i < totalProdutos; i++) {
+            if (stock[i][1] == carrinho[pos][0]) {
+                int quantidadeStock = stoi(stock[i][2]);
+                int qntRemovida = stoi(carrinho[pos][1]);
+                stock[i][2] = to_string(quantidadeStock + qntRemovida);
+                break;
+            }
+        }
+
+        // remover item e deslocar restantes
+        for (int i = pos; i < totalCarrinho - 1; i++) {
+            for (int j = 0; j < 4; j++) {
+                carrinho[i][j] = carrinho[i + 1][j];
+            }
+        }
+        totalCarrinho--;
+        cout << "Item removido com sucesso.\n";
+    }
+    else {
+        cout << "Índice inválido.\n";
+    }
+}
+void checkout(string**carrinho)
+{
+    //Imprimir A matriz ond eesta o carrinho armazenado
+    for (int i = 0; i < totalCarrinho; i++)
+    {
+        cout << left << setw(10) << "Produto" << setw(10) << "Qtd" << setw(10) << "Preco" << setw(10) << "Subtotal" << endl;
+        cout << "=====================================" << endl;
+        cout << fixed << setprecision(2) << left << setw(10) << carrinho[i][0]
+             << setw(10) << carrinho[i][1]
+             << setw(10) << stod(carrinho[i][2])
+             << setw(10) << stod(carrinho[i][3]) << endl;    
+    }
+    cout << endl;
+
+
+
+    char proseguir;
+    cout << "Confirmas esta compra ? ";
+    cin >> proseguir;
+    cout << endl;
+
+
+    if (proseguir == 's' || proseguir == 'S')
+    {
+        double totalSemIVA = 0;
+        double totalComIVA = 0;
+
+        cout << "========== TALAO DE COMPRA ==========" << endl;
+        cout << left << setw(10) << "Produto" << setw(10) << "Qtd" << setw(10) << "Preco" << setw(10) << "Subtotal" << endl;
+
+        for (int i = 0; i < totalCarrinho; i++) {
+            cout << left << setw(10) << carrinho[i][0]
+                << setw(10) << carrinho[i][1]
+                << setw(10) << fixed << setprecision(2) << stod(carrinho[i][2])
+                << setw(10) << fixed << setprecision(2) << stod(carrinho[i][3]) << endl;
+
+            totalSemIVA += stod(carrinho[i][3]);
+        }
+
+        totalComIVA = totalSemIVA * IVA;
+
+        cout << "=====================================" << endl;
+        cout << "Total sem IVA: " << fixed << setprecision(2) << totalSemIVA << " €" << endl;
+        cout << "Total com IVA: " << fixed << setprecision(2) << totalComIVA << " €" << endl;
+    }
+    cout << endl;
+
+}
+
 int main()
 {
     setlocale(LC_ALL, ".65001");
     inicializarstock();
+    inicializarCarrinho(carrinho);
     int op;
+    string input;
     do {
         system("CLS");// Limpa o menu para a proxima operação             TODO:Validacoes Para que quando escrevemos uma letras no menu nao de crash
         cout << endl;
         cout << "--- MENU ---" << endl;
-        cout << "1. Efetuar venda" << endl;
-        cout << "2. Adicionar produto" << endl;
-        cout << "3. Eliminar produto" << endl;
-        cout << "4. Listar produtos" << endl;
-        cout << "5. Sair" << endl;
+        cout << "1. Adicionar ao Carrinho" << endl;
+        cout << "2. Remover ao Carrinho" << endl;
+        cout << "3. Adicionar produto" << endl;
+        cout << "4. Eliminar produto" << endl;
+        cout << "5. Listar produtos" << endl;
+        cout << "6. Checkout" << endl;
+        cout << "7. Sair" << endl;
         cout << "Opcao: ";
-        cin >> op;
+        cin >> input;
+
+        try {  //Maneira de traduzir o input para int para so aceitar numeros e aparecer msg de erro quando se escreve letras
+            op = stoi(input);
+        }
+        catch (...) {
+            cout << endl;
+            cout << "Entrada invalida. Por favor, escreva um numero inteiro de 1 a 7." << endl;
+            op = -1; // opcao inválida
+        }
 
         switch (op) {
-        case 1: efectuarVenda(stock); break; // criar funcao para efectuarVenda + Talao
-        case 2: adicionarProdutos(stock); break; // criar funcao para adicionarProdutos
-        case 3: removerProdutos(stock); break; // criar funcao de eliminarProdutos
-        case 4: listarProdutos(stock); break; // criar a funcao de listarPprodutos, tendo em base o stock
-        case 5: cout << "A sair..." << endl; break;
+        case 1: adicionarCarrinho(stock); break; // criar funcao para efectuarVenda + Talao
+        case 2: removerCarrinho(stock,carrinho); break; // criar funcao que apaga items do carrinho
+        case 3: adicionarProdutos(stock); break; // criar funcao para adicionarProdutos
+        case 4: removerProdutos(stock); break; // criar funcao de eliminarProdutos
+        case 5: listarProdutos(stock); break; // criar a funcao de listarPprodutos, tendo em base o stock
+        case 6: checkout(carrinho); break;// criar funcao para carrinho
+        case 7: cout << "A sair..." << endl; break;
         default: cout << "Opção inválida." << endl;
         }
+        cout << endl;
         cout << "\nPressione Enter para continuar...";
         cin.ignore(); // Limpa o buffer do cin
         cin.get(); // Espera o Enter
 
-    } while (op != 5);
+    } while (op != 7);
 }
