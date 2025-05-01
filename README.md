@@ -8,12 +8,13 @@ DONE List:
 5.  Funcao removerProduto();  (Bernardo)
 6.  Funcao efetuarVenda();  (Bernardo)
 8.  Limpar da Console as Accoes das Funcoes;  (Vinicius)
+9.  Validacoes Menu  (Para nao crashar se se escrever letras;  (Bernardo)
  
 
 TO DO LIST:
 
 1.  Validacoes adicionarProduto(); ( Verificar se o produto já existe antes de adicionar um novo , Se o produto já existir mas estiver com stock 0, atualizar apenas a quantidade ,Evitar criar entradas duplicadas para o mesmo produto )  (Vinicius)
-2.  Validacoes Menu  (Para nao crashar se se escrever letras;  (Vinicius)
+
 3.  Validacoes listarProduto();  (Vinicius)
 4.  Validacoes removerProduto();  (Vinicius)
 5.  Fazer o Talao (ou arranjar o que esta ali feito de modo a sair tudo com 2 casas decimais e o simbolo do euro);  (Vinicius)
