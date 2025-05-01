@@ -21,6 +21,6 @@ TO DO LIST:
 
 6.  Testar o programa (depois para perceber se e preciso mais validacoes(principalmente com as Quantidades));  (Vinicius)
 7.  Preparar Apresentacao; (Vinicius)/(Bernardo)
-8. adicionar ao carrinho (Vinicius)
-9. funcao de checkout com base no carrinho (Vinicius)
-10. Alterar menu adicionando carrinho e checkout (Vinicius)
+8. adicionar ao carrinho (Vinicius) (ja ta feito no codigo que esta ai se quiseres aproveitar)
+9. funcao de checkout com base no carrinho (Vinicius) (ja ta feito no codigo que esta ai se quiseres aproveitar)
+10. Alterar menu adicionando carrinho e checkout (Vinicius) (ja ta feito no codigo que esta ai se quiseres aproveitar)
