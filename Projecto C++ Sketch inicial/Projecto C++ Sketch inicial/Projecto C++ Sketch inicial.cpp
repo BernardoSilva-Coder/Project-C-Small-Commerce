@@ -310,7 +310,7 @@ int main()
     int op;
     string input;
     do {
-        system("CLS");// Limpa o menu para a proxima operação             TODO:Validacoes Para que quando escrevemos uma letras no menu nao de crash
+        system("CLS");// Limpa o menu para a proxima operação             
         cout << endl;
         cout << "--- MENU ---" << endl;
         cout << "1. Adicionar ao Carrinho" << endl;
