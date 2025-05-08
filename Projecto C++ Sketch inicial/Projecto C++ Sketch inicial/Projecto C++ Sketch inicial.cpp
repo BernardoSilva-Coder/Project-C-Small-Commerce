@@ -342,12 +342,12 @@ int main()
         }
 
         switch (op) {
-        case 1: adicionarCarrinho(stock); break; // criar funcao para efectuarVenda + Talao
-        case 2: removerCarrinho(stock,carrinho); break; // criar funcao que apaga items do carrinho
-        case 3: adicionarProdutos(stock); break; // criar funcao para adicionarProdutos
-        case 4: removerProdutos(stock); break; // criar funcao de eliminarProdutos
-        case 5: listarProdutos(stock); break; // criar a funcao de listarPprodutos, tendo em base o stock
-        case 6: checkout(carrinho); break;// criar funcao para carrinho
+        case 1:system("CLS"); adicionarCarrinho(stock); break; // criar funcao para efectuarVenda + Talao
+        case 2:system("CLS"); removerCarrinho(stock,carrinho); break; // criar funcao que apaga items do carrinho
+        case 3:system("CLS"); adicionarProdutos(stock); break; // criar funcao para adicionarProdutos
+        case 4:system("CLS"); removerProdutos(stock); break; // criar funcao de eliminarProdutos
+        case 5:system("CLS"); listarProdutos(stock); break; // criar a funcao de listarPprodutos, tendo em base o stock
+        case 6:system("CLS"); checkout(carrinho); break;// criar funcao para carrinho
         case 7: cout << "A sair..." << endl; break;
         default: cout << "Opção inválida." << endl;
         }
@@ -357,4 +357,3 @@ int main()
         cin.get(); // Espera o Enter
 
     } while (op != 7);
-}
