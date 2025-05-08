@@ -35,7 +35,7 @@ void inicializarstock() {
     stock[0][3] = "0.04";
     //Segundo Produto
     stock[1][0] = "2";
-    stock[1][1] = "Arroz";
+    stock[1][1] = "Agua";
     stock[1][2] = "150";
     stock[1][3] = "1.00";
     //Terceiro Produto
@@ -255,7 +255,6 @@ void removerCarrinho(string** carrinho,string** stock) {
 }
 void checkout(string**carrinho)
 {
-    //Imprimir A matriz ond eesta o carrinho armazenado
     for (int i = 0; i < totalCarrinho; i++)
     {
         cout << left << setw(10) << "Produto" << setw(10) << "Qtd" << setw(10) << "Preco" << setw(10) << "Subtotal" << endl;
@@ -268,7 +267,7 @@ void checkout(string**carrinho)
     cout << endl;
 
 
-
+    
     char proseguir;
     cout << "Confirmas esta compra ? ";
     cin >> proseguir;
@@ -279,7 +278,11 @@ void checkout(string**carrinho)
     {
         double totalSemIVA = 0;
         double totalComIVA = 0;
-
+        double pago;
+        double troco;
+        cout << "Qual a Quantia com que deseja pagar ? " << endl;
+        cin >> pago;
+        
         cout << "========== TALAO DE COMPRA ==========" << endl;
         cout << left << setw(10) << "Produto" << setw(10) << "Qtd" << setw(10) << "Preco" << setw(10) << "Subtotal" << endl;
 
@@ -297,6 +300,12 @@ void checkout(string**carrinho)
         cout << "=====================================" << endl;
         cout << "Total sem IVA: " << fixed << setprecision(2) << totalSemIVA << " €" << endl;
         cout << "Total com IVA: " << fixed << setprecision(2) << totalComIVA << " €" << endl;
+        troco = pago - totalComIVA;
+        cout << "Total Pago :" << fixed << setprecision(2) << pago << " €" << endl;
+        cout << "Troco : " << fixed << setprecision(2) << troco << " €" << endl;
+
+
+
     }
     cout << endl;
 
@@ -310,7 +319,7 @@ int main()
     int op;
     string input;
     do {
-        system("CLS");// Limpa o menu para a proxima operação             
+        system("CLS");// Limpa o menu para a proxima operação             TODO:Validacoes Para que quando escrevemos uma letras no menu nao de crash
         cout << endl;
         cout << "--- MENU ---" << endl;
         cout << "1. Adicionar ao Carrinho" << endl;
@@ -323,7 +332,7 @@ int main()
         cout << "Opcao: ";
         cin >> input;
 
-        try {  //Maneira de traduzir o input para int para so aceitar numeros e aparecer msg de erro quando se escreve letras
+        try {
             op = stoi(input);
         }
         catch (...) {
