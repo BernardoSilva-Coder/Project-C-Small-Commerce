@@ -361,10 +361,14 @@ int main()
         case 7: cout << "A sair..." << endl; break;
         default: cout << "Opção inválida." << endl;
         }
-        cout << endl;
-        cout << "\nPressione Enter para continuar...";
-        cin.ignore(); // Limpa o buffer do cin
-        cin.get(); // Espera o Enter
+        if (op != 7)
+        {
+            cout << endl;
+            cout << "\nPressione Enter para continuar...";
+            cin.ignore(); // Limpa o buffer do cin
+            cin.get(); // Espera o Enter
+        }
+       
 
     } while (op != 7);
 }
