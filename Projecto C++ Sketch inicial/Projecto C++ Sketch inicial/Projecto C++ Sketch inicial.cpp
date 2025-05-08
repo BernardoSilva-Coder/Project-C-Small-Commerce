@@ -282,8 +282,18 @@ void checkout(string**carrinho)
         double troco;
         cout << "Qual a Quantia com que deseja pagar ? " << endl;
         cin >> pago;
+        // Obter data e hora atual
+        time_t agora = time(0);
+        tm tempoLocal;
+        localtime_s(&tempoLocal, &agora); // versão segura no Visual Studio
+
+        // Criar string formatada com data e hora
+        char buffer[80];
+        strftime(buffer, 80, "%d/%m/%Y %H:%M:%S", &tempoLocal);;
+
         
         cout << "========== TALAO DE COMPRA ==========" << endl;
+        cout << "Data: " << buffer << endl;
         cout << left << setw(10) << "Produto" << setw(10) << "Qtd" << setw(10) << "Preco" << setw(10) << "Subtotal" << endl;
 
         for (int i = 0; i < totalCarrinho; i++) {
@@ -313,13 +323,13 @@ void checkout(string**carrinho)
 
 int main()
 {
-    setlocale(LC_ALL, ".65001");
+    
     inicializarstock();
     inicializarCarrinho(carrinho);
     int op;
     string input;
     do {
-        system("CLS");// Limpa o menu para a proxima operação             TODO:Validacoes Para que quando escrevemos uma letras no menu nao de crash
+        system("CLS");// Limpa o menu para a proxima operação             
         cout << endl;
         cout << "--- MENU ---" << endl;
         cout << "1. Adicionar ao Carrinho" << endl;
@@ -357,3 +367,4 @@ int main()
         cin.get(); // Espera o Enter
 
     } while (op != 7);
+}
