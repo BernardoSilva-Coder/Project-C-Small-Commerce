@@ -84,47 +84,29 @@ bool validarQuantidade(const string& quantidade) {
 
 // Função para validar se o preço é um número decimal positivo (permitindo até duas casas decimais)
 bool validarPreco(const string& preco) {
-    int pontoCount = 0; // Contador para verificar se há mais de um ponto decimal
-    int casasDecimais = 0; // Contador para contar as casas decimais
+    // Verifica se a string está vazia
+    if (preco.empty()) return false;
 
-    // Itera sobre cada caractere da string
-    for (size_t i = 0; i < preco.length(); ++i) {
-        char c = preco[i];
+    int pontoCount = 0;
 
-        // Verifica se o caractere é um dígito
+    for (char c : preco) {
         if (isdigit(c)) {
             continue;
-        }
-        // Verifica se o caractere é um ponto decimal e se já não existe outro
-        else if (c == '.' && pontoCount == 0) {
+        } else if (c == '.' && pontoCount == 0) {
             pontoCount++;
-            continue;
-        }
-        // Se encontrar qualquer caractere diferente de número ou ponto, retorna false
-        else {
-            return false;
-        }
-
-        // Se for um ponto decimal, contamos as casas decimais após ele
-        if (c == '.' && i + 1 < preco.length()) {
-            casasDecimais = 0; // Reinicia as casas decimais para verificar a parte depois do ponto
-        }
-
-        // Verifica o número de casas decimais
-        if (pontoCount == 1 && i > 0 && preco[i - 1] == '.') {
-            casasDecimais++;
-            if (casasDecimais > 2) {
-                return false; // Se houver mais de duas casas decimais, retorna false
-            }
+        } else {
+            return false; // caractere inválido
         }
     }
 
-    // Agora tenta converter a string para um número decimal (double)
-    double valorPreco = stod(preco); // Converte para número
-
-    // Verifica se o número é positivo
-    return valorPreco > 0;
+    try {
+        double valorPreco = stod(preco);
+        return valorPreco > 0;
+    } catch (...) {
+        return false; // erro ao converter, string inválida como número
+    }
 }
+
 
 // Função para validar se o ID é um número inteiro e não contém ponto decimal
 bool validarID(const string& idStr) {
