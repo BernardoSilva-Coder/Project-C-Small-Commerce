@@ -403,14 +403,15 @@ void removerCarrinho(string** stock, string** carrinho) {
         return;
     }
 
+    // Exibir cabeçalho
     cout << left << setw(10) << "ID"
         << setw(15) << "Produto"
         << setw(10) << "Qtd"
         << setw(15) << "Preco Unit"
         << setw(10) << "Subtotal" << endl;
 
+    // Exibir itens do carrinho
     for (int i = 0; i < totalCarrinho; i++) {
-        // Verifica se a linha está completamente preenchida antes de imprimir
         bool linhaValida = true;
         for (int j = 0; j < 5; j++) {
             if (carrinho[i][j].empty()) {
@@ -420,15 +421,16 @@ void removerCarrinho(string** stock, string** carrinho) {
         }
 
         if (linhaValida) {
-            cout << left << setw(10) << carrinho[i][0]
-                << setw(15) << carrinho[i][1]
-                << setw(10) << carrinho[i][2]
-                << setw(15) << carrinho[i][3]
-                << setw(10) << carrinho[i][4] << endl;
+            cout << left << setw(10) << carrinho[i][0]  // ID
+                << setw(15) << carrinho[i][1]  // Nome
+                << setw(10) << carrinho[i][2]  // Quantidade
+                << setw(15) << carrinho[i][3]  // Preço
+                << setw(10) << carrinho[i][4]  // Subtotal
+                << endl;
         }
     }
 
-   
+    // Escolher item para remover
     int posRemover;
     cout << "Digite o numero do item que deseja remover: ";
     while (true) {
@@ -445,33 +447,33 @@ void removerCarrinho(string** stock, string** carrinho) {
 
     int indexCarrinho = posRemover - 1;
 
-    // Restaurar a quantidade ao stock
-    string nomeProduto = carrinho[indexCarrinho][0];
-    int quantidadeRemovida = stoi(carrinho[indexCarrinho][1]);
+    // Restaurar a quantidade ao estoque usando ID
+    string idProduto = carrinho[indexCarrinho][0];
+    int quantidadeRemovida = stoi(carrinho[indexCarrinho][2]);
 
     for (int i = 0; i < totalProdutos; i++) {
-        if (stock[i][1] == nomeProduto) {
+        if (stock[i][0] == idProduto) {
             int quantidadeAtual = stoi(stock[i][2]);
             stock[i][2] = to_string(quantidadeAtual + quantidadeRemovida);
             break;
         }
     }
 
-    // Remove o item deslocando os itens seguintes para "cima"
-    for (int i = posRemover - 1; i < totalCarrinho - 1; i++) {
+    // Deslocar os itens acima do removido
+    for (int i = indexCarrinho; i < totalCarrinho - 1; i++) {
         for (int j = 0; j < 5; j++) {
             carrinho[i][j] = carrinho[i + 1][j];
         }
     }
 
-    // Limpa o último slot
+    // Limpar última linha
     for (int j = 0; j < 5; j++) {
         carrinho[totalCarrinho - 1][j] = "";
     }
+
     totalCarrinho--;
     cout << "Item removido com sucesso do carrinho." << endl;
 }
-
 
 
 bool sorteioVenda() {
