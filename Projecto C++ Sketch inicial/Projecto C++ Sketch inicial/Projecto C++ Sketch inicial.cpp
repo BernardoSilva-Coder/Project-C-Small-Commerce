@@ -92,9 +92,11 @@ bool validarPreco(const string& preco) {
     for (char c : preco) {
         if (isdigit(c)) {
             continue;
-        } else if (c == '.' && pontoCount == 0) {
+        }
+        else if (c == '.' && pontoCount == 0) {
             pontoCount++;
-        } else {
+        }
+        else {
             return false; // caractere inválido
         }
     }
@@ -102,7 +104,8 @@ bool validarPreco(const string& preco) {
     try {
         double valorPreco = stod(preco);
         return valorPreco > 0;
-    } catch (...) {
+    }
+    catch (...) {
         return false; // erro ao converter, string inválida como número
     }
 }
@@ -131,17 +134,21 @@ void listarProdutos(string** stock) {
 
     // Imprimir a matriz, para listar produtos 
     cout << endl << "Lista de Produtos:" << endl;
+    cout << "-------------------------------------------\n";
     cout << "ID\tNome\tQnt\tPreco de Custo" << endl;
+    cout << "-------------------------------------------\n";
     cout << fixed << setprecision(2);
     for (int i = 0; i < totalProdutos; i++)
     {
         for (int j = 0; j < colunas; j++)
         {
+            
             cout << stock[i][j] << fixed << setprecision(2) << "\t";
         }
 
         cout << endl;
     }
+    cout << "-------------------------------------------\n";
 }
 //Criacao da Funcao Adicionar Produto
 void adicionarProdutos(string** stock) {
@@ -366,7 +373,7 @@ void adicionarCarrinho(string** stock) {
 
 
 
-        cout << qntdVenda << " unidade do produto " << stock[index][1] << " foi adicionado ao carrinho. Subtotal: " << fixed << setprecision(2) << subtotal << " €" << endl;
+        cout << qntdVenda << " unidade do produto " << stock[index][1] << " foi adicionado ao carrinho. Subtotal: " << fixed << setprecision(2) << subtotal << " EUR" << endl;
         cout << "Deseja continuar a comprar? (s/n): ";
         cin >> continuar;
 
@@ -533,7 +540,7 @@ void checkout(string** carrinho) {
         cout << "Parabens! Sua compra foi sorteada! Passou a ser gratuita!" << endl;
     }
     else {
-        cout << "Total a pagar com IVA: " << fixed << setprecision(2) << totalComIVA << " €" << endl;
+        cout << "Total a pagar com IVA: " << fixed << setprecision(2) << totalComIVA << " EUR" << endl;
         cout << "Digite o valor pago: ";
         while (true) {
             cin >> pago;
@@ -578,10 +585,10 @@ void checkout(string** carrinho) {
     }
 
     cout << "=====================================" << endl;
-    cout << "Total sem IVA: " << fixed << setprecision(2) << totalSemIVA << " €" << endl;
-    cout << "Total com IVA: " << fixed << setprecision(2) << totalComIVA << " €" << endl;
-    cout << "Total Pago: " << fixed << setprecision(2) << (vendaGratis ? 0.0 : pago) << " €" << endl;
-    cout << "Troco: " << fixed << setprecision(2) << troco << " €" << endl;
+    cout << "Total sem IVA: " << fixed << setprecision(2) << totalSemIVA << " EUR" << endl;
+    cout << "Total com IVA: " << fixed << setprecision(2) << totalComIVA << " EUR" << endl;
+    cout << "Total Pago: " << fixed << setprecision(2) << (vendaGratis ? 0.0 : pago) << " EUR" << endl;
+    cout << "Troco: " << fixed << setprecision(2) << troco << " EUR" << endl;
 
     // Limpar carrinho
     for (int i = 0; i < totalCarrinho; i++) {
@@ -593,6 +600,34 @@ void checkout(string** carrinho) {
 
     cout << endl;
 }
+void listarCarrinho(string** carrinho, int totalCarrinho) {
+    cout << "\nCarrinho de Compras:\n";
+    cout << "-----------------------------------------\n";
+    cout << left << setw(15) << "Produto"
+        << setw(10) << "Preco"
+        << setw(10) << "Qtd"
+        << setw(10) << "Total" << endl;
+    cout << "-----------------------------------------\n";
+
+    float totalFinal = 0;
+    for (int i = 0; i < totalCarrinho; i++) {
+        string nome = carrinho[i][1];
+        double preco = stof(carrinho[i][3]);
+        int qtd = stoi(carrinho[i][2]);
+        double totalLinha = stof(carrinho[i][4]);
+
+        cout << left << setw(15) << nome
+            << setw(10) << fixed << setprecision(2) << preco
+            << setw(10) << qtd
+            << setw(10) << totalLinha << endl;
+
+        totalFinal += totalLinha;
+    }
+    cout << "-----------------------------------------\n";
+    cout << left << setw(35) << "Total a Pagar:" << totalFinal << " EUR\n";
+    cout << "-----------------------------------------\n";
+}
+
 
 
 int main()
@@ -606,13 +641,14 @@ int main()
         system("CLS");// Limpa o menu para a proxima operação             
         cout << endl;
         cout << "--- MENU ---" << endl;
-        cout << "1. Adicionar ao Carrinho" << endl;
-        cout << "2. Remover ao Carrinho" << endl;
-        cout << "3. Adicionar produto" << endl;
-        cout << "4. Eliminar produto" << endl;
-        cout << "5. Listar produtos" << endl;
-        cout << "6. Checkout" << endl;
-        cout << "7. Sair" << endl;
+        cout << "|1.| Adicionar ao Carrinho|" << endl;
+        cout << "|2.| Remover ao Carrinho|" << endl;
+        cout << "|3.| Listar Carrinho|" << endl;
+        cout << "|4.| Adicionar produto|" << endl;
+        cout << "|5.| Eliminar produto|" << endl;
+        cout << "|6.| Listar produtos|" << endl;
+        cout << "|7.| Checkout|" << endl;
+        cout << "|8.| Sair|" << endl;
         cout << "Opcao: ";
         cin >> input;
 
@@ -628,14 +664,15 @@ int main()
         switch (op) {
         case 1:system("CLS"); adicionarCarrinho(stock); break; // criar funcao para efectuarVenda + Talao
         case 2:system("CLS"); removerCarrinho(stock, carrinho); break; // criar funcao que apaga items do carrinho
-        case 3:system("CLS"); adicionarProdutos(stock); break; // criar funcao para adicionarProdutos
-        case 4:system("CLS"); removerProdutos(stock); break; // criar funcao de eliminarProdutos
-        case 5:system("CLS"); listarProdutos(stock); break; // criar a funcao de listarPprodutos, tendo em base o stock
-        case 6:system("CLS"); checkout(carrinho); break;// criar funcao para carrinho
-        case 7: cout << "A sair..." << endl; break;
+        case 3:system("CLS"); listarCarrinho(carrinho,totalCarrinho); break; // criar a funcao de listarPprodutos, tendo em base o stock
+        case 4:system("CLS"); adicionarProdutos(stock); break; // criar funcao para adicionarProdutos
+        case 5:system("CLS"); removerProdutos(stock); break; // criar funcao de eliminarProdutos
+        case 6:system("CLS"); listarProdutos(stock); break; // criar a funcao de listarPprodutos, tendo em base o stock
+        case 7:system("CLS"); checkout(carrinho); break;// criar funcao para carrinho
+        case 8: cout << "A sair..." << endl; break;
         default: cout << "Opção inválida." << endl;
         }
-        if (op != 7)
+        if (op != 8)
         {
             cout << endl;
             cout << "\nPressione Enter para continuar...";
